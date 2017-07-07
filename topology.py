@@ -1,5 +1,7 @@
 from mininet.topo import Topo
-
+'''
+experiments topology
+'''
 class Ring( Topo ):
 
     def build( self ):
@@ -20,4 +22,4 @@ class Ring( Topo ):
         self.addLink(switch2, switch3, 3, 2)
         self.addLink(switch3, switch1, 3, 3)
 
-#topos = { 'ring': ( lambda: Ring() ) }
+topos = { 'ring': ( lambda: Ring() ) }
