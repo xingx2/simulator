@@ -24,8 +24,12 @@ from topology import name_to_topology
 
 
 class Bug3345(Bug):
+
+    description='Loopremover module does not recalculate after link down'
+
     def __init__(self):
-        super(Bug3345,self).__init__(id=3345, topo='ring', events=None, checker='check_reachability')
+        super(Bug3345,self).__init__(id=3345, topo='ring', events=None, checker='check_reachability', description=
+            self.description)
         self.result = False
 
     def topoBuilding(self):
@@ -46,7 +50,6 @@ class Bug3345(Bug):
         cli=CLI(mininet=self.net, script=file_path)
 
         self.result = self.check()
-        print self.result
         self.net.stop()
         self.dump()
 
@@ -54,9 +57,8 @@ class Bug3345(Bug):
         print "\n*******************\n"
         print "Bug-3345 simulation report"
         if self.result:
-            print "Replay success"
+            print "Replay success\n"
         else:
-            print "Replay fail"
-        print self.__dict__
-        print ""
-        print "*******************\n"
+            print "Replay fail\n"
+        self.output()
+        print "\n*******************\n"

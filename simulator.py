@@ -4,30 +4,28 @@
 simulator main
 """
 from experiments.bug_3345 import Bug3345
-from fault_checker import check_reachability
-from mininet.node import OVSSwitch, RemoteController
-from mininet.net import Mininet
-from mininet.log import setLogLevel,output
-from mininet.cli import CLI
-from mininet.link import TCLink
-import time
-import logging
+from mininet.log import setLogLevel
 
-from topology import Ring
 
 experiments={
     '3345' : Bug3345
 }
 
+def dump(experiments):
+    print "**********"
+    for id, bug in experiments.items():
+        print ("Bug-%s : %s" % (id, bug.description))
+    print "**********"
+
 def main():
     while True:
-        print "Here are all bug experiments, ^_^"
-        print experiments
+        print "Hi, Here are all bug experiments:"
+        dump(experiments)
         print "Input 666666 to exit\n"
         num = raw_input("Please input the bug number: ")
         if num in experiments.keys():
             print "Start bug auto-simulation..."
-            bug=experiments[num]()
+            bug = experiments[num]()
             bug.simulate()
         elif num == '666666':
             break
