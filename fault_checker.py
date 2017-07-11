@@ -3,6 +3,12 @@
 fault checker class and dic
 
 '''
+import json
+import urllib2
+from base64 import encodestring
+import httplib
+import urllib
+
 
 def check_reachability(network):
     result = network.pingAll()
@@ -13,7 +19,25 @@ def check_reachability(network):
         print "no reachability fault"
         return False
 
+def check_node_number(network):
+    url = 'http://127.0.0.1:8181/restconf/operational/network-topology:network-topology/topology/flow:1'
+    username = 'admin'
+    password = 'admin'
+    req = urllib2.Request(url)
+    auth = encodestring('%s:%s' % (username, password))[:-1]
+    req.add_header('Authorization', 'Basic %s' % auth)
+    try:
+        heml = urllib2.urlopen(req)
+    except IOError, e:
+        # here we shouldn't fail if the username/password is right
+        print "It looks like the username or password is wrong."
+        return None
+    json_hash = json.loads(heml.read())
+    node = json_hash['topology'][0]['node']
+    return node.__len__()
+
 
 name_to_checker={
-    "check_reachability" : check_reachability
+    "check_reachability" : check_reachability,
+    "check_node_number" : check_node_number
 }

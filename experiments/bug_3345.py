@@ -45,7 +45,7 @@ class Bug3345(Bug):
         self.net.start()
         time.sleep(10)
         self.check()
-
+        print "dump flowtable and cut the link between s1 and s3..."
         file_path = os.path.join(os.path.dirname(__file__) + '/scripts/s3345')
         cli=CLI(mininet=self.net, script=file_path)
 

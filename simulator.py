@@ -6,9 +6,11 @@ simulator main
 from experiments.bug_3345 import Bug3345
 from mininet.log import setLogLevel
 
+from experiments.bug_3346 import Bug3346
 
 experiments={
-    '3345' : Bug3345
+    '3345' : Bug3345,
+    '3346' : Bug3346
 }
 
 def dump(experiments):
