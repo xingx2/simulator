@@ -49,7 +49,7 @@ class Bug3346(Bug):
         print ("Check after link down: The node numbers is %d" % result_after)
         return result_before == result_after
 
-    def simulate(self):
+    def simulate(self, ver):
         self.topoBuilding()
         self.net.start()
         time.sleep(10)

@@ -37,6 +37,25 @@ class Linear( Topo ):
         self.addLink(host2, switch2, 1, 1)
         self.addLink(switch1, switch2, 2, 2)
 
+class LinearFor6655( Topo ):
+
+    def build( self ):
+
+        # add hosts and switches
+        host1 = self.addHost( 'h1' )
+        host2 = self.addHost( 'h2' )
+        host3 = self.addHost('h3')
+        switch1 = self.addSwitch( 's1' )
+        switch2 = self.addSwitch( 's2' )
+        switch3 = self.addSwitch('s3')
+
+        # add links
+        self.addLink(host1, switch1, 1, 1)
+        self.addLink(host2, switch2, 1, 1)
+        self.addLink(host3, switch3, 1, 1)
+        self.addLink(switch1, switch2, 2, 2)
+        self.addLink(switch2, switch3, 3, 2)
+
 class FatTree(Topo):
     
     def build(self, n=4):
@@ -91,5 +110,6 @@ topos2 = { 'fatTree': ( lambda: FatTree() ) }
 name_to_topology = {
     "ring" : Ring,
     "linear" : Linear,
+    "linear_for_6655" : LinearFor6655,
     "fat_tree" : FatTree
 }

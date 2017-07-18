@@ -1,0 +1,2 @@
+h1 ping -c 20 h2
+dpctl dump-flows

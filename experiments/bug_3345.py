@@ -40,7 +40,7 @@ class Bug3345(Bug):
         result = name_to_checker[self.checker](self.net)
         return result
 
-    def simulate(self):
+    def simulate(self, ver):
         self.topoBuilding()
         self.net.start()
         time.sleep(10)

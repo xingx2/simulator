@@ -27,7 +27,7 @@ class Bug(object):
         pass
 
     @abc.abstractmethod
-    def simulate(self):
+    def simulate(self, ver):
         pass
 
     @abc.abstractmethod
