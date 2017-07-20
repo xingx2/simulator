@@ -18,7 +18,9 @@ An auto-simulator of OpenDaylight bugs.
 + **test.py**: my simple test script(useless for simulation)
 + **experimrnts**: the experiments we support
     + **scripts**: cli of each experiments
-	+ **base.py**: base class of bugs and some utility things
+	+ **base.py**: base class of bugs, events and some utility things
+	+ **events.py**: network events for training
+	+ **training.py**: auto generate network events for inference
 	+ **bug_3345.py**: specific bugs
 
 ## Note

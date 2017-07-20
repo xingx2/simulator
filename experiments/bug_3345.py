@@ -11,6 +11,7 @@ bug-3345:
 https://bugs.opendaylight.org/show_bug.cgi?id=3345
 
 '''
+
 import os
 import time
 from mininet.cli import CLI
@@ -25,12 +26,14 @@ from topology import name_to_topology
 
 class Bug3345(Bug):
 
-    description='Loopremover module does not recalculate after link down'
+    description = 'Loopremover module does not recalculate after link down'
 
     def __init__(self):
-        super(Bug3345,self).__init__(id=3345, topo='ring', events=None, checker='check_reachability', description=
-            self.description)
+        super(Bug3345, self).__init__(bid=3345, topo='ring', events=None, checker='check_reachability',
+                                      description=self.description)
         self.result = False
+        self.topology = None
+        self.net = None
 
     def topoBuilding(self):
         self.topology = name_to_topology[self.topo]()

@@ -1,6 +1,6 @@
 '''
 
-super class of bugs
+super class of bugs and events
 
 '''
 import abc
@@ -15,8 +15,8 @@ class Switch(OVSSwitch):
 class Bug(object):
     __metaclass__ = abc.ABCMeta
 
-    def __init__(self, id, topo, events, checker, description):
-        self.id=id
+    def __init__(self, bid, topo, events, checker, description):
+        self.bid=bid
         self.topo=topo
         self.events=events
         self.checker=checker
@@ -45,3 +45,20 @@ class Bug(object):
               "Topo: %s\n"
               "Fault checker: %s"
               % (self.id, self.description, self.topo, self.checker))
+
+class Event(object):
+    __metaclass__ = abc.ABCMeta
+
+    def __init__(self, eid, name, net, description):
+        self.eid = eid
+        self.name = name
+        self.net = net
+        self.description = description
+
+    @abc.abstractmethod
+    def simulate(self):
+        pass
+
+    @abc.abstractmethod
+    def output(self):
+        pass

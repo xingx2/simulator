@@ -26,12 +26,14 @@ from topology import name_to_topology
 
 class Bug3346(Bug):
 
-    description='Hostracker module does not remove host after host link goes down'
+    description = 'Hostracker module does not remove host after host link goes down'
 
     def __init__(self):
-        super(Bug3346,self).__init__(id=3346, topo='linear', events=None, checker='check_node_number', description=
-            self.description)
+        super(Bug3346, self).__init__(bid=3346, topo='linear', events=None, checker='check_node_number',
+                                      description=self.description)
         self.result = False
+        self.topology = None
+        self.net = None
 
     def topoBuilding(self):
         self.topology = name_to_topology[self.topo]()

@@ -32,12 +32,14 @@ from topology import name_to_topology
 
 class Bug6655(Bug):
 
-    description='Arphandler unable to flood arp packet'
+    description = 'Arphandler unable to flood arp packet'
 
     def __init__(self):
-        super(Bug6655,self).__init__(id=6655, topo='linear_for_6655', events=None, checker='check_reachability', description=
-            self.description)
+        super(Bug6655, self).__init__(bid=6655, topo='linear_for_6655', events=None, checker='check_reachability',
+                                      description=self.description)
         self.result = False
+        self.topology = None
+        self.net = None
 
     def topoBuilding(self):
         self.topology = name_to_topology[self.topo]()

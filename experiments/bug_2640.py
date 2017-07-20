@@ -28,12 +28,14 @@ from topology import name_to_topology
 
 class Bug2640(Bug):
 
-    description='Hosts shown after disconnecting mininet when cluster is enabled'
+    description = 'Hosts shown after disconnecting mininet when cluster is enabled'
 
     def __init__(self):
-        super(Bug2640, self).__init__(id=2640, topo='linear', events=None, checker='check_host_number_for_helium', description=
-            self.description)
+        super(Bug2640, self).__init__(bid=2640, topo='linear', events=None, checker='check_host_number_for_helium',
+                                      description=self.description)
         self.result = False
+        self.topology = None
+        self.net = None
 
     def topoBuilding(self):
         self.topology = name_to_topology[self.topo]()
