@@ -2,9 +2,10 @@
 An auto-simulator of OpenDaylight bugs.
 
 ## Requirement
-- mininet: $ sudo apt-get install mininet
 - python 2.7+
 - OpenDaylight Controller(config in ***start_controller/start_controller.sh***)
+- mininet: $ sudo apt-get install mininet
+- D-ITG for traffic generation: $ sudo apt-get install d-itg
 
 ## How to use it?
 1. Run the ***start_controller.sh*** to start the controller.
@@ -25,3 +26,4 @@ An auto-simulator of OpenDaylight bugs.
 
 ## Note
 - If the program crashes, please use ***$ sudo mn -c*** to clean the mininet.
+- About D-ITG(Distributed Internet Traffic Generator), please infer to http://traffic.comics.unina.it/software/ITG/index.php
