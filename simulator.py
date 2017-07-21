@@ -50,7 +50,7 @@ def main():
                 topo = raw_input()
                 if round_num < 0 or not name_to_topology.has_key(topo):
                     print "Wrong training parameters, Please try again."
-                    break
+                    continue
                 train = experiments[num](round_num=round_num, topo=topo)
                 train.schedule()
             else:

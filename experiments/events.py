@@ -2,8 +2,11 @@
 network events for training
 '''
 import json
+import random
 import urllib2
 from base64 import encodestring
+
+import time
 
 from experiments.base import Event
 
@@ -62,7 +65,21 @@ class TrafficInjection(Event):
                                                description=self.description)
 
     def simulate(self):
-        pass
+        h1_num, h2_num = self.host_random_select()
+        send_host = self.net.hosts[h1_num]
+        receive_host = self.net.hosts[h2_num]
+        send_host.cmdPrint('ITGSend -T TCP -a %s -C 10 -t 5000 &' %
+                           (receive_host.IP()))
+        print ("Inject TCP traffic from %s to %s during 5s" % (send_host.name, receive_host.name))
+
+    def host_random_select(self):
+        len = self.net.hosts.__len__() - 1
+        h1 = random.randint(0, len)
+        h2 = random.randint(0, len)
+        while h1 == h2:
+            h2 = random.randint(0, len)
+        pair = (h1, h2)
+        return pair
 
     def output(self):
         print ("Event id: %d, type: %s" % (self.eid, self.name))

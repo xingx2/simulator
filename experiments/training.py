@@ -3,7 +3,9 @@ training script
 
 auto generate network events for inference
 '''
+import commands
 import random
+import subprocess
 from mininet.node import RemoteController
 from mininet.link import TCLink
 from mininet.net import Mininet
@@ -26,7 +28,7 @@ wait_times = {
     0: 10,
     1: 10,
     2: 5,
-    3: 5,
+    3: 10,
     4: 10
 }
 
@@ -45,6 +47,7 @@ class Training(object):
         self.topo = topo
         self.topology = None
         self.net = None
+        self.host_names = []
         #if topo started
         self.flag = 0
 
@@ -58,22 +61,32 @@ class Training(object):
                 self.topoBuilding()
                 ran = 0
                 self.flag = 1
+                for host in self.net.hosts:
+                    host.cmdPrint('ITGRecv -l log/receive-%s.log &' % host.name)
+                    self.host_names.append(host.name)
+                    #print self.host_names
             else:
                 ran = random.randint(1, events.__len__()-1)
 
             if ran == 1:
                 self.flag = 0
+                self.host_names = []
 
-            print ("&&&&&&&&&&&&&&&&round %d, event: %d &&&&&&&&&&&&&&&&" % (i, ran))
+            print ("&&&&&&&&&&&&&&&& round %d, event: %d &&&&&&&&&&&&&&&&" % (i, ran))
             event = events[ran](eid=i, net=self.net, waitTime=wait_times[ran], url=northbound_info['url'],
                                 username=northbound_info['username'], password=northbound_info['password'])
             event.output()
             event.simulate()
             time.sleep(wait_times[ran])
+
         if self.flag == 1:
             self.net.stop()
+        for host_name in self.host_names:
+            print ("&&&&&&&&&&&&&&&& Traffic receive log of %s: &&&&&&&&&&&&&&&&" % host_name)
+            subprocess.call('ITGDec log/receive-%s.log &' % host_name, shell=True)
+            time.sleep(3)
         self.dump()
 
     def dump(self):
-        print ("Training finished.\n"
+        print ("&&&&&&&&&&&&&&&& Training finished &&&&&&&&&&&&&&&&\n"
                "Train %d rounds with %s topology" % (self.round_num, self.topo))
